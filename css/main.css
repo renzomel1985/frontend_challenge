@@ -1,0 +1,35 @@
+@font-face{
+        font-family:'AvenirNext';src:url(../fonts/AvenirNextLTPro-Regular.woff) 
+        format('woff'),url(../fonts/AvenirNextLTPro-Regular.otf) 
+        format('opentype');font-weight:400;font-style:normal;font-display:swap
+}
+@font-face{font-family:'AvenirNext';src:url(../fonts/AvenirNextLTPro-Demi.woff) format('woff'),url(../fonts/Montserrat-Regular.ttf) format('truetype');font-weight:600;font-style:normal;font-display:swap}@font-face{font-family:'AvenirNext';src:url(../fonts/AvenirNextLTPro-Bold.woff) format('woff'),url(../fonts/AvenirNextLTPro-Bold.otf) format('opentype');font-weight:700;font-style:normal;font-display:swap}
+
+body{
+        font-family:'AvenirNext','Arial'!important;
+}
+
+#searching-wrap{
+        position: relative;
+}
+
+#searching-result {
+        position: absolute;
+        width: 100%;
+        max-width:870px;
+        cursor: pointer;
+        overflow-y: auto;
+        max-height: 400px;
+        box-sizing: border-box;
+        z-index: 1001;
+        top: 38px;
+}
+#search-icon{
+        position: absolute;
+        right: 2%;
+        top: 30%;
+        z-index: 99;
+}
+#searching-result .s-highlight {
+        color: #FF7300;
+}

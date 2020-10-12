@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Front Challenge</title>
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://kit.fontawesome.com/7e9700836d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row mt-5">
+            <div class="offset-4 col-4">
+                <label>Encuentra profesionales de confianza</label>
+                <div class="input-group" id="searching-wrap">
+                    <input type="text" placeholder="Qué necesitas" class="form-control" name="search" id="searching-input">
+                    <span class="fas fa-search" id="search-icon"></span>
+                    <ul class="list-group" id="searching-result"></ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script >
+        $(document).ready(function(){
+            $('#searching-input').keyup(function(){
+
+                $('#searching-result').html('');
+                let searchField = $(this).val();
+
+                if(searchField.length <= 2){
+                    return;
+                }
+                let expression = new RegExp('('+searchField+')', "ig");
+
+                $('#search-icon').removeClass('fa-search');
+                $('#search-icon').addClass('fa-spinner');
+
+                $.getJSON('https://www.dnd5eapi.co/api/monsters', function(data) {
+                    $('#searching-result').html('');
+                    $('#search-icon').removeClass('fa-spinner');
+                    $('#search-icon').addClass('fa-search');
+                    $.each(data.results, function(key, value){
+                        if (value.name.search(expression) != -1 ){
+                            let name = value.name.replace(expression, '<span class="s-highlight">$1</span>');
+                            $('#searching-result').append('<li class="list-group-item link-class">' + name + '</li>');
+                        }
+                    });
+                });
+            });
+
+            $('#searching-result').on('click', 'li', function() {
+                var click_text = $(this).text();
+                $('#searching-input').val($.trim(click_text));
+                $("#searching-result").html('');
+            });
+
+            $( "#searching-wrap" )
+                .focusout(function() {
+                    $('#searching-result').html('');
+                    $('#searching-input').val('');
+                })
+                .blur(function() {
+                    $('#searching-result').html('');
+                    $('#searching-input').val('');
+                });
+
+
+
+        })
+
+    </script>
+
+</body>
+</html>
